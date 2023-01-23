@@ -1,16 +1,14 @@
-from saakd_api import app, db
-from saakd_api.api.todo import todo_bp
-from saakd_api.api.calculator import calculator_bp
-from saakd_api.model.calculators import initCalculators
-from saakd_api.api.timer import timer_bp
-from saakd_api.api.note import note_bp
-from saakd_api.model.notes import init_notes
+from __init__ import app  # Definitions initialization
+from model.tokens import initTeams
 
-app.register_blueprint(todo_bp)
-app.register_blueprint(timer_bp)
-app.register_blueprint(note_bp)
 
-app.register_blueprint(calculator_bp)
+# setup APIs
+from api.cardAPI import card_api # Blueprint import api definition
+# from api.driver import joke_api # Blueprint import api definition
+from api.formulaone import f1_api # Blueprint import api definition
+
+# setup App pages
+from projects.projects import app_projects # Blueprint directory import projects definition
 
 
 @app.before_first_request
@@ -19,6 +17,8 @@ def init_db():
         db.create_all()
         init_notes()
         initCalculators()
+        initTeams()
+        
 
 if __name__ == "__main__":
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///./volumes/sqlite.db"
