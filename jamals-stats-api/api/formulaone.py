@@ -49,6 +49,33 @@ class F1API:
             teams = F1Team.query.all()    # read/extract all users from database
             json_ready = [team.read() for team in teams]  # prepare output in json
             return jsonify(json_ready)  # jsonify creates Flask response object, more specific to APIs than json.dumps
+    
+    class _Update(Resource):
+        def update(self):
+            body = request.get_json()
+            id = body.get('id')
+            try:
+                driver = body.get("driver")
+            except:
+                pass
+            try:
+                numChamps = body.get("numChamps")
+            except:
+                pass
+            try: 
+                races = body.get("races")
+            except:
+                pass
+            team = F1Team.query.get(id)
+    
+    class _Delete(Resource):
+        def delete(self):
+            body = request.get_json()
+            id = body.get('id')
+            team = F1Team.query.get(id)
+            team.delete()
+            return f"{team.read()} Has been deleted"
+
 
     # building RESTapi endpoint
     api.add_resource(_Create, '/create')

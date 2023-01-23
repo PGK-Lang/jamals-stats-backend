@@ -15,8 +15,6 @@ from projects.projects import app_projects # Blueprint directory import projects
 def init_db():
     with app.app_context():
         db.create_all()
-        init_notes()
-        initCalculators()
         initTeams()
         
 
