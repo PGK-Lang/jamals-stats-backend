@@ -6,7 +6,7 @@ from ..model.drivers import Drivers
 driver_blueprint = Blueprint("drivers", __name__)
 driver_api = Api(driver_blueprint)
 
-class DriverAPI(Resource):
+class DriversAPI(Resource):
   def get(self):
     id = request.args.get("id")
     driver = db.session.query(Drivers).get(id)
@@ -45,7 +45,7 @@ class DriverAPI(Resource):
       return driver.to_dict()
     return {"message": "driver not found"}, 404
 
-class LikesAPI(Resource):
+class Likes(Resource):
   def put(self):
     id = request.args.get("id")
     driver = db.session.query(Drivers).get(id)
@@ -56,7 +56,7 @@ class LikesAPI(Resource):
       return driver.likes
     return {"message": "driver not found"}, 404
 
-class DislikesAPI(Resource):
+class Dislikes(Resource):
   def put(self):
     id = request.args.get("id")
     driver = db.session.query(Drivers).get(id)
@@ -67,12 +67,12 @@ class DislikesAPI(Resource):
       return driver.dislikes
     return {"message": "driver not found"}, 404
 
-class ListDriversAPI(Resource):
+class ListDrivers(Resource):
   def get(self):
     drivers = db.session.query(Drivers).all()
     return [driver.to_dict() for driver in drivers]
 
-driver_api.add_resource(DriverAPI, "/drivers")
-driver_api.add_resource(LikesAPI, "/like")
-driver_api.add_resource(DislikesAPI, "/dislike")
-driver_api.add_resource(ListDriversAPI, "/drivers-list")
+driver_api.add_resource(DriversAPI, "/drivers")
+driver_api.add_resource(Likes, "/like")
+driver_api.add_resource(Dislikes, "/dislike")
+driver_api.add_resource(ListDrivers, "/drivers-list")
