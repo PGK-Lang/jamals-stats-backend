@@ -1,4 +1,4 @@
-flask
+flask==2.2.2
 requests
 SQLAlchemy
 Werkzeug
@@ -6,3 +6,4 @@ flask_login
 flask_sqlalchemy
 flask_migrate
 flask_restful
+requests
