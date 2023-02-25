@@ -36,7 +36,7 @@ class Drivers(db.Model):
     """
     example comment
     {
-      "name": "Sean"
+      "name": "Sean",
       "comment": "This driver is insane!!"
     }
     """
@@ -72,6 +72,9 @@ class Drivers(db.Model):
   @comments.setter
   def comments(self, comment: dict):
     self._comments = self.comments + [ comment.copy() ]
+
+  def addComment(self, comment):
+    self._comments.append(comment)
 
   def deleteComment(self):
     self._comments = self.comments[:-1].copy()
@@ -122,7 +125,6 @@ def init_drivers():
                 position=driver["position"], points=driver["points"], nationality=driver["nationality"])
     )
 
-  print("\nTest 4: add comments & likes")
   driver_objects[0].addComment({
       "name": "Dontavious",
       "message": "You're trash!!"
